@@ -1,0 +1,39 @@
+.People {
+    width: 320px;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    padding: 0 0 10px 0;
+}
+
+.ButtonDiv {
+    width: 100%;
+    margin-top: 45px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.People button:hover {
+    background-color: lightblue;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .People {
+        width: 400px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .People {
+        width: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .People {
+        width: 400px;
+    }
+}

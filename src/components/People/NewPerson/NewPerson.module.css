@@ -1,0 +1,45 @@
+.NewPerson {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* border-bottom: 5px solid rgb(9, 121, 123); */
+    box-shadow: 0 2px 3px #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+.NewPerson button:hover {
+    background-color: lightgreen;
+}
+
+.NewPerson div {
+    margin: 5px 0;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .NewPerson {
+        width: 400px;
+    }
+    .NewPerson div {
+        margin: 8px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .NewPerson {
+        width: 400px;
+    }
+    .NewPerson div {
+        margin: 8px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .NewPerson {
+        width: 400px;
+    }
+    .NewPerson div {
+        margin: 8px;
+    }
+}

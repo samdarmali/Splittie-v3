@@ -1,0 +1,39 @@
+.Gst {
+    width: 300px;
+    display: flex;
+    margin: 0 10px;
+    padding: 10px auto;
+    height: 30px;
+    border-bottom: 1px solid #bbb;
+    /* background-color: lightgray; */
+}
+
+.Gst p {
+    margin: auto 0;
+}
+
+.GstBox {
+    width: 95%;
+    display: inline-flex;
+    text-align: center;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Gst {
+        width: 400px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Gst {
+        width: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Gst {
+        width: 400px;
+    }
+}

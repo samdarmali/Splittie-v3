@@ -1,0 +1,24 @@
+.Button {
+    font-weight: 600;
+    width: 80px;
+    height: 35px;
+    text-align: center;
+    border: solid 2px;
+    border-radius: 10px;
+}
+
+.Green {
+    color: rgb(19, 164, 74);
+    border-color: rgb(19, 164, 74);
+    background-color: lightgreen;
+}
+
+.Red {
+    color: maroon;
+    border-color: maroon;
+    background-color: salmon;
+}
+
+.Item button:hover {
+    background-color: salmon;
+}

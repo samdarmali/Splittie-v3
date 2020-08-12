@@ -1,0 +1,28 @@
+.PersonList {
+    width: 330px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    padding: 10px 0;
+    height: 420px;
+    overflow: auto;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .PersonList {
+        width: 450px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .PersonList {
+        width: 450px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .PersonList {
+        width: 450px;
+    }
+}

@@ -1,0 +1,38 @@
+.Total {
+    width: 300px;
+    display: flex;
+    padding: 10px auto;
+    height: 30px;
+    border-bottom: 1px solid #bbb;
+    background-color: lightgray;
+}
+
+.Total p {
+    margin: auto 0;
+}
+
+.TotalBox {
+    width: 95%;
+    display: inline-flex;
+    text-align: center;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Total {
+        width: 400px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Total {
+        width: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Total {
+        width: 400px;
+    }
+}

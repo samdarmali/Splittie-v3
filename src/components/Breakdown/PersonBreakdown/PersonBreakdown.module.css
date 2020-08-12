@@ -1,0 +1,9 @@
+.ItemList {
+    width: 100%;
+}
+
+.Item {
+    background-color: lightgrey;
+    height: 35px;
+    padding-left: 20px; 
+}

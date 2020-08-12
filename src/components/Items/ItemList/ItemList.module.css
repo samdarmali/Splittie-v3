@@ -1,0 +1,27 @@
+.ItemList {
+    width: 320px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    height: 330px;
+    overflow: auto;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .ItemList {
+        width: 420px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .ItemList {
+        width: 420px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .ItemList {
+        width: 420px;
+    }
+}

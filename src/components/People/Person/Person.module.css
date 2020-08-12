@@ -1,0 +1,64 @@
+.PersonWrapper {
+    border-bottom: 1px solid #bbb;
+    padding-right: 10px;
+}
+
+.Person {
+    width: 300px;
+    display: flex;
+    margin: 10px;
+    padding: 10px auto;
+    height: auto;
+}
+
+.Person button {
+    margin-left: auto;
+}
+
+.Person button:hover {
+    background-color: salmon;
+} 
+
+.PersonBox {
+    width: 70%;
+    padding: 0 0 0 10px;
+    display: inline-flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.ItemBox {
+    width: 50%;
+    height: 90%;
+}
+
+.InputLabel {
+    font-size: 12px;
+}
+
+.Selector {
+    height: 80%;
+}
+
+.ChipsDiv {
+    margin: 10px;
+}
+
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Person {
+        width: 400px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Person {
+        width: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Person {
+        width: 400px;
+    }
+}

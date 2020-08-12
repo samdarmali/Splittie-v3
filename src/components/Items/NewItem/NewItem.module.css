@@ -1,0 +1,52 @@
+.NewItem {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* border-bottom: 5px solid rgb(9, 121, 123); */
+    box-shadow: 0 2px 3px #ccc;
+    padding: 5px 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+.NewItem h4 {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px auto;
+    margin-right: 10px;
+}
+
+.NewItem button:hover {
+    background-color: lightgreen;
+}
+
+.NewItem div {
+    margin: 5px 0;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .NewItem {
+        width: 400px;
+    }
+    .NewItem div {
+        margin: 6px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .NewItem {
+        width: 400px;
+    }
+    .NewItem div {
+        margin: 6px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .NewItem {
+        width: 400px;
+    }
+    .NewItem div {
+        margin: 6px;
+    }
+}

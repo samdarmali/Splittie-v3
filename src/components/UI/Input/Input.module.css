@@ -1,0 +1,65 @@
+.Input {
+    display: inline-block;
+    margin: auto;
+    margin-right: 10px;
+    width: auto
+}
+
+.ItemName {
+    display: inline-block;
+    height: 30px;
+    border: solid 1px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.ItemCost {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    border: solid 1px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.PersonName {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    border: solid 1px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.service,
+.gst {
+    display: inline-block;
+    width: 38px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+    /* background-color: lightgray; */
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .ItemName {
+        width: 200px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .ItemName {
+        width: 200px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .ItemName {
+        width: 200px;
+    }
+}

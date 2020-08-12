@@ -1,0 +1,79 @@
+.Breakdown {
+    width: 320px;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    padding: 0 0 10px 0;
+}
+
+.ButtonDiv {
+    width: 100%;
+    margin-top: 95px;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.Breakdown button:hover {
+    background-color: lightblue;
+}
+
+.BreakdownList {
+    width: 100%;
+    height: 500px;
+    overflow: auto;
+}
+
+.Modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Paper {
+    background-color: #7e7e7e;
+    border: 2px solid #000;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+    color: white;
+    padding: 20px 40px 30px;
+    margin: 150px 100px 75px;
+    text-align: center;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Breakdown {
+        width: 400px;
+    }
+
+    .Paper {
+        padding: 20px 40px 30px;
+        margin: 100px 200px 150px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Breakdown {
+        width: 400px;
+    }
+
+    .Paper {
+        padding: 20px 40px 30px;
+        margin: 200px 400px 300px;
+        margin: 100px 200px 150px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Breakdown {
+        width: 400px;
+    }
+
+    .Paper {
+        padding: 20px 40px 30px;
+        margin: 200px 400px 300px;
+    }
+}

@@ -1,0 +1,46 @@
+.Item {
+    width: 300px;
+    display: flex;
+    padding: 10px auto;
+    height: auto;
+    border-bottom: 1px solid #bbb;
+}
+
+.Item p {
+    margin: auto 0;
+}
+
+.Item button {
+    margin-left: auto;
+}
+
+.Item button:hover {
+    background-color: salmon;
+}
+
+.ItemBox {
+    width: 70%;
+    display: inline-flex;
+    text-align: center;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Item {
+        width: 400px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Item {
+        width: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Item {
+        width: 400px;
+    }
+}
