@@ -11,9 +11,9 @@ class Breakdown extends Component {
     state = {
         isOpen: false,
         whatsappString: 'https://api.whatsapp.com/send?text=',
-        teleToken: '1373978841:AAEk3fv24Wb1HJRuYXPGJvLows8s6bSyOJU',
-        telegramString: 'https://api.telegram.org/bot',
-        telegramString2: 'tg://msg?text='
+        // teleToken: '1373978841:AAEk3fv24Wb1HJRuYXPGJvLows8s6bSyOJU',
+        // telegramString: 'https://api.telegram.org/bot',
+        // telegramString2: 'tg://msg?text='
     }
 
     handleClose = () => {
@@ -29,24 +29,31 @@ class Breakdown extends Component {
         // loop through state and add
         this.props.people.forEach(person => {
             // add name to list
-            const personName = person.personName;
-            WAString = WAString + personName + newline;
+            // WAString = WAString + person.personName + ' - ' + person.total.toFixed(2) + newline;
+            WAString += `${person.personName} - $${person.total.toFixed(2)}${newline}`;
             // add shares to list
             person.shares.forEach(share => {
-                WAString = WAString + ' - ' + share.itemName + ' (' + share.fraction + ') ' + ' $' + share.sharePrice + newline;
+                // WAString = WAString + ' - ' + share.itemName + ' (' + share.fraction + ') ' + ' $' + share.sharePrice + newline; 
+                WAString += ` - ${share.itemName} (${share.fraction}) $${share.sharePrice.toFixed(2)}${newline}`;
             })
+            // add service and gst charge
+            const serviceAndGst = person.total - person.subTotal;
+            // WAString = WAString + ' - GST / Service $' + serviceAndGst.toFixed(2) + newline + newline;
+            WAString += ` - GST / Service $${serviceAndGst.toFixed(2)}${newline}${newline}`;
         })
+
+        this.setState({ whatsappString: WAString });
         
-        // update telegram string
-        // let TELEString = this.state.telegramString + this.state.teleToken + '/sendMessage?text=';
-        let TELEString = this.state.telegramString2;
-        // loop through state and add
-        this.props.people.forEach(person => {
-            // add name to list
-            const personName = person.personName;
-            TELEString = TELEString + personName + newline;
-        })
-        this.setState({ whatsappString: WAString, telegramString2: TELEString });
+        // // update telegram string
+        // // let TELEString = this.state.telegramString + this.state.teleToken + '/sendMessage?text=';
+        // let TELEString = this.state.telegramString2;
+        // // loop through state and add
+        // this.props.people.forEach(person => {
+        //     // add name to list
+        //     const personName = person.personName;
+        //     TELEString = TELEString + personName + newline;
+        // })
+        // this.setState({ whatsappString: WAString, telegramString2: TELEString });
     }
 
 
@@ -85,9 +92,9 @@ class Breakdown extends Component {
                             <Button href={this.state.whatsappString}>
                                 Whatsapp
                             </Button>
-                            <Button href={this.state.telegramString2}>
+                            {/* <Button href={this.state.telegramString2}>
                                 Telegram
-                            </Button>
+                            </Button> */}
                         </div>
                     </Fade>
                 </Modal>
