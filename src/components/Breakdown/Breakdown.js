@@ -29,16 +29,13 @@ class Breakdown extends Component {
         // loop through state and add
         this.props.people.forEach(person => {
             // add name to list
-            // WAString = WAString + person.personName + ' - ' + person.total.toFixed(2) + newline;
             WAString += `${person.personName} - $${person.total.toFixed(2)}${newline}`;
             // add shares to list
             person.shares.forEach(share => {
-                // WAString = WAString + ' - ' + share.itemName + ' (' + share.fraction + ') ' + ' $' + share.sharePrice + newline; 
                 WAString += ` - ${share.itemName} (${share.fraction}) $${share.sharePrice.toFixed(2)}${newline}`;
             })
             // add service and gst charge
             const serviceAndGst = person.total - person.subTotal;
-            // WAString = WAString + ' - GST / Service $' + serviceAndGst.toFixed(2) + newline + newline;
             WAString += ` - GST / Service $${serviceAndGst.toFixed(2)}${newline}${newline}`;
         })
 
@@ -55,8 +52,6 @@ class Breakdown extends Component {
         // })
         // this.setState({ whatsappString: WAString, telegramString2: TELEString });
     }
-
-
 
     render() {
 
