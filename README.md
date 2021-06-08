@@ -1,4 +1,4 @@
-## Splittie V3
+## Splittie V3.0.0
 
 App to split bills with your friends, factoring in service and GST charges proportionately. 
 
