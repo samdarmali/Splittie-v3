@@ -1,0 +1,44 @@
+.Items {
+    width: 320px;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: auto;
+    padding: 0 0 10px 0;
+}
+
+.ButtonDiv {
+    width: 100%;
+    margin-top: 21px;
+    /* position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 10px; */
+}
+
+.ButtonDiv button {
+    float: right;
+}
+
+.Items button:hover {
+    background-color: lightblue;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Items {
+        width: 400px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Items {
+        width: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Items {
+        width: 400px;
+    }
+}
