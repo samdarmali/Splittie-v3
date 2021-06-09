@@ -65,14 +65,14 @@ class Breakdown extends Component {
                 <List className={classes.BreakdownList} style={{ marginBottom: '10px' }}>
                     {personBreakdownArr}
                 </List>
-                <div className={classes.ButtonDiv}>
+                {/* <div className={classes.ButtonDiv}>
                     <Button variant="contained" onClick={this.props.onPrev}>
                         <NavigateBefore />People
                     </Button>
                     <Button onClick={this.handleOpen} variant="contained">
                         Share<NavigateNext />
                     </Button>
-                </div>
+                </div> */}
                 <Modal
                     className={classes.modal}
                     open={this.state.isOpen}

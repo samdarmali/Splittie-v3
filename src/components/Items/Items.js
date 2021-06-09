@@ -11,9 +11,10 @@ import * as actions from "../../store/actions/index";
 import Charges from "./Charges/Charges";
 
 const Items = (props) => {
-    /* onNext() is mapped in dispatch below, calls action.next() REDUX */
+    
   const onNextHandler = () => {
-    props.onNext();
+    // props.onNext();
+    props.step += 1
   };
 
   return (
@@ -22,12 +23,12 @@ const Items = (props) => {
       <ItemList itemObj={props.items} />
       <Charges />
       <Totals />
-      <div className="ButtonDiv">
-        <Button variant="contained" onClick={props.onNext}>
+      {/* <div className="ButtonDiv">
+        Button variant="contained" onClick={props.onNext}>
           People
           <NavigateNext />
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

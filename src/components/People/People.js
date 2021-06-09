@@ -22,14 +22,14 @@ class People extends Component {
             <div className={classes.People}>
                 <NewPerson />
                 <PersonList peopleObj={this.props.people} />
-                <div className={classes.ButtonDiv}>
+                {/* <div className={classes.ButtonDiv}>
                     <Button variant="contained" onClick={this.props.onPrev}>
                         <NavigateBefore />Items
                     </Button>
                     <Button variant="contained" onClick={() => this.handleConfirm()}>
                         Confirm<NavigateNext />
                     </Button>
-                </div>
+                </div> */}
             </div>
         );
     }
