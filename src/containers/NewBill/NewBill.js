@@ -7,6 +7,8 @@ import "./NewBill.css";
 import Items from "../../components/Items/Items";
 import People from "../../components/People/People";
 import Breakdown from "../../components/Breakdown/Breakdown";
+import * as actions from '../../store/actions/index';
+
 
 const NewBill = (props) => {
   const [step, setStep] = useState(1);
@@ -20,6 +22,7 @@ const NewBill = (props) => {
 
   const onNextHandler = () => {
     if (step < 3) {
+        props.onNext(); //redux
         setStep(step + 1);
     }
     console.log(buttons[step]);
@@ -27,6 +30,7 @@ const NewBill = (props) => {
 
   const onPrevHandler = () => {
     if (step > 1) {
+        props.onPrev(); //redux
         setStep(step - 1);
     }
     console.log(buttons[step]);
@@ -36,7 +40,7 @@ const NewBill = (props) => {
     <div className="NewBill">
       {step == 1 ? <Items items={items} step={step} /> : null}
       {step == 2 ? <People people={people} step={step} /> : null}
-      {step == 3 ? <Breakdown /> : null}
+      {step == 3 ? <Breakdown items={items} people={people} /> : null}
       <div className="ButtonDiv">
         <Button variant="contained" onClick={onPrevHandler}>
           <NavigateBefore />
@@ -51,6 +55,7 @@ const NewBill = (props) => {
   );
 };
 
+//redux
 const mapStateToProps = (state) => {
   return {
     step: state.step.step,
@@ -58,6 +63,14 @@ const mapStateToProps = (state) => {
     people: state.people.people,
   };
 };
+//redux
+const mapDispatchToProps = dispatch => {
+    return {
+        onNext: () => dispatch(actions.next()),
+        onPrev: () => dispatch(actions.previous())
+    }
+}
+//redux
+export default connect(mapStateToProps, mapDispatchToProps)(NewBill);
 
-// export default connect(mapStateToProps)(NewBill);
-export default NewBill;
+// export default NewBill;
