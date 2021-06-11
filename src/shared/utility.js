@@ -31,3 +31,17 @@ export const checkValidity = (value, rules) =>  {
     }
     return isValid;
 }
+
+// Set new id given a list of items with existing ids
+export const setNewId = (items) => {
+    let newId = null;
+    const idList = items.map(el => el.id);
+    // set new id for item that does not already exist            
+    for (let n in [...Array(items.length + 2).keys()]) {
+        if (!idList.includes(parseInt(n)) && parseInt(n) !== 0) {
+            newId = parseInt(n);
+            break;
+        }
+    }
+    return newId;
+}

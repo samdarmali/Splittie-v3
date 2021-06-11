@@ -19,16 +19,10 @@ const Items = (props) => {
 
   return (
     <div className="Items">
-      <NewItem />
+      <NewItem addItem={props.addItem} updateTotals={props.updateTotals} />
       <ItemList itemObj={props.items} />
       <Charges />
       <Totals />
-      {/* <div className="ButtonDiv">
-        Button variant="contained" onClick={props.onNext}>
-          People
-          <NavigateNext />
-        </Button>
-      </div> */}
     </div>
   );
 };
