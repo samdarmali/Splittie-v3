@@ -19,7 +19,7 @@ const NewBill = (props) => {
     subTotal: 0.0,
     total: 0.0,
   });
-  const [people, setPeople] = useState([]);
+  const [people] = useState([]); //setPeople
   const [buttons] = useState({
     1: ["", "People"],
     2: ["Items", "Confirm"],
@@ -43,28 +43,37 @@ const NewBill = (props) => {
   };
 
   const addItem = (item) => {
-    const newId = setNewId(bill.items);
-    const newPrice = parseFloat(item.itemPrice);
     const newItemData = updateObject(item, {
-      id: newId,
-      itemPrice: newPrice,
+      id: setNewId(bill.items),
+      itemPrice: parseFloat(item.itemPrice),
       totalQuantity: 0,
     });
-    const newBill = updateObject(bill, {
-      items: bill.items.concat(newItemData),
-    });
-    setBill(newBill);
+    setBill(
+      updateObject(bill, {
+        items: bill.items.concat(newItemData),
+      })
+    );
   };
 
-  const updateTotals = () => {
+  const deleteItem = (id) => {
+    const idIndex = bill.items.map((el) => el.id).indexOf(id);
+    let clonedItems = [...bill.items];
+    if (idIndex > -1) {
+      clonedItems.splice(idIndex, 1);
+    }
+    setBill(updateObject(bill, { items: clonedItems }));
+  };
+
+  // Update totals
+  useEffect(() => {
     if (bill.items.length > 0) {
       // Setsub-total
       const newTotal = bill.items
         .map((el) => el.itemPrice)
         .reduce((prev, curr) => prev + curr);
       // Set total
-      const subTotal = parseFloat(newTotal);
-      const totalService = subTotal + (bill.service / 100) * subTotal;
+      const totalService =
+        parseFloat(newTotal) + (bill.service / 100) * parseFloat(newTotal);
       const totalGst = totalService + (bill.gst / 100) * totalService;
       // Set the bill
       setBill(
@@ -74,27 +83,22 @@ const NewBill = (props) => {
         })
       );
     } else {
-      setBill(bill, { subTotal: 0 });
+      setBill(updateObject(bill, { subTotal: 0, total: 0 }));
     }
-  };
-
-  // For any async functions use this
-  useEffect(() => {
-    updateTotals();
   }, [bill.items]);
 
   return (
     <div className="NewBill">
-      {step == 1 ? (
+      {step === 1 ? (
         <Items
           items={bill.items}
           step={step}
           addItem={addItem}
-          updateTotals={updateTotals}
+          deleteItem={deleteItem}
         />
       ) : null}
-      {step == 2 ? <People people={people} step={step} /> : null}
-      {step == 3 ? <Breakdown items={bill.items} people={people} /> : null}
+      {step === 2 ? <People people={people} step={step} /> : null}
+      {step === 3 ? <Breakdown items={bill.items} people={people} /> : null}
       <div className="ButtonDiv">
         <Button variant="contained" onClick={onPrevHandler}>
           <NavigateBefore />
@@ -126,13 +130,13 @@ const mapDispatchToProps = (dispatch) => {
     onPrev: () => dispatch(actions.previous()),
 
     onAddItem: (itemData) => dispatch(actions.addItem(itemData)),
+    onDeleteItem: (id) => dispatch(actions.deleteItem(id)),
+
     onUpdateSubTotal: () => dispatch(actions.updateSubTotal()),
     onUpdateTotal: () => dispatch(actions.updateTotal()),
 
     onUpdateCharge: (inputId, value) =>
       dispatch(actions.updateCharge(inputId, value)),
-    onUpdateSubTotal: () => dispatch(actions.updateSubTotal()),
-    onUpdateTotal: () => dispatch(actions.updateTotal()),
   };
 };
 

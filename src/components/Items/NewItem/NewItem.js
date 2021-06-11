@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from "react";
+import React, { useState, useRef } from "react"; //Component
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 

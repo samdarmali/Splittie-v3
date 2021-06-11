@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, {  } from "react"; //Component
 import { connect } from "react-redux";
-import { Button } from "@material-ui/core";
-import { NavigateNext } from "@material-ui/icons";
+// import { Button } from "@material-ui/core";
+// import { NavigateNext } from "@material-ui/icons";
 
 import "./Items.css";
 import NewItem from "./NewItem/NewItem";
@@ -11,16 +11,11 @@ import * as actions from "../../store/actions/index";
 import Charges from "./Charges/Charges";
 
 const Items = (props) => {
-    
-  const onNextHandler = () => {
-    // props.onNext();
-    props.step += 1
-  };
 
   return (
     <div className="Items">
-      <NewItem addItem={props.addItem} updateTotals={props.updateTotals} />
-      <ItemList itemObj={props.items} />
+      <NewItem addItem={props.addItem}  />
+      <ItemList itemObj={props.items} deleteItem={props.deleteItem} />
       <Charges />
       <Totals />
     </div>
