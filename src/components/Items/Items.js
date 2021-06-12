@@ -1,32 +1,31 @@
-import React, {  } from "react"; //Component
-import { connect } from "react-redux";
-// import { Button } from "@material-ui/core";
-// import { NavigateNext } from "@material-ui/icons";
+import React from "react"; //Component
+// import { connect } from "react-redux";
 
 import "./Items.css";
 import NewItem from "./NewItem/NewItem";
 import ItemList from "./ItemList/ItemList";
 import Totals from "./Totals/Totals";
-import * as actions from "../../store/actions/index";
+// import * as actions from "../../store/actions/index";
 import Charges from "./Charges/Charges";
 
 const Items = (props) => {
-
   return (
     <div className="Items">
-      <NewItem addItem={props.addItem}  />
+      <NewItem addItem={props.addItem} />
       <ItemList itemObj={props.items} deleteItem={props.deleteItem} />
-      <Charges />
-      <Totals />
+      <Charges service={props.service} gst={props.gst} updateCharge={props.updateCharge} />
+      <Totals subTotal={props.subTotal} total={props.total} />
     </div>
   );
 };
 
-/* REDUX */
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onNext: () => dispatch(actions.next()),
-  };
-};
+export default Items;
 
-export default connect(null, mapDispatchToProps)(Items);
+/* REDUX */
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onNext: () => dispatch(actions.next()),
+//   };
+// };
+
+// export default connect(null, mapDispatchToProps)(Items);

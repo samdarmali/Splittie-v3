@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react"; //Component
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 
 import classes from "./NewItem.module.css";
 import Input from "../../UI/Input/Input";
-import * as actions from "../../../store/actions/index";
+// import * as actions from "../../../store/actions/index";
 import { updateObject, checkValidity } from "../../../shared/utility";
 
 const NewItem = (props) => {
@@ -79,9 +79,9 @@ const NewItem = (props) => {
     /* --- */
 
     /* REDUX */
-    props.onAddItem(item);
-    props.onUpdateSubTotal();
-    props.onUpdateTotal();
+    // props.onAddItem(item);
+    // props.onUpdateSubTotal();
+    // props.onUpdateTotal();
     /* --- */
 
     // clear inputs and focus
@@ -151,6 +151,8 @@ const NewItem = (props) => {
     </>
   );
 };
+
+export default NewItem;
 
 /*** OLD CODE BELOW ***/
 
@@ -303,12 +305,12 @@ const NewItem = (props) => {
 //   }
 // }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddItem: (itemData) => dispatch(actions.addItem(itemData)),
-    onUpdateSubTotal: () => dispatch(actions.updateSubTotal()),
-    onUpdateTotal: () => dispatch(actions.updateTotal()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onAddItem: (itemData) => dispatch(actions.addItem(itemData)),
+//     onUpdateSubTotal: () => dispatch(actions.updateSubTotal()),
+//     onUpdateTotal: () => dispatch(actions.updateTotal()),
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(NewItem);
+// export default connect(null, mapDispatchToProps)(NewItem);

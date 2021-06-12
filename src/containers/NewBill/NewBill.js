@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { NavigateNext, NavigateBefore } from "@material-ui/icons";
 
@@ -7,11 +7,16 @@ import "./NewBill.css";
 import Items from "../../components/Items/Items";
 import People from "../../components/People/People";
 import Breakdown from "../../components/Breakdown/Breakdown";
-import * as actions from "../../store/actions/index";
+// import * as actions from "../../store/actions/index";
 import { setNewId, updateObject } from "../../shared/utility";
 
 const NewBill = (props) => {
   const [step, setStep] = useState(1);
+  const [items, setItems] = useState([]);
+  const [service, setService] = useState(10);
+  const [gst, setGst] = useState(7);
+  const [subtotal, setSubtotal] = useState(0.0);
+  const [total, seTtotal] = useState(0.0);
   const [bill, setBill] = useState({
     items: [],
     service: 10,
@@ -28,7 +33,7 @@ const NewBill = (props) => {
 
   const onNextHandler = () => {
     if (step < 3) {
-      props.onNext(); //redux
+    //   props.onNext(); //redux
       setStep(step + 1);
     }
     console.log(buttons[step]);
@@ -36,7 +41,7 @@ const NewBill = (props) => {
 
   const onPrevHandler = () => {
     if (step > 1) {
-      props.onPrev(); //redux
+    //   props.onPrev(); //redux
       setStep(step - 1);
     }
     console.log(buttons[step]);
@@ -64,6 +69,10 @@ const NewBill = (props) => {
     setBill(updateObject(bill, { items: clonedItems }));
   };
 
+  const updateCharge = (chargeType, val) => {
+    setBill(updateObject(bill, { [chargeType]: val }));
+  };
+
   // Update totals
   useEffect(() => {
     if (bill.items.length > 0) {
@@ -85,7 +94,7 @@ const NewBill = (props) => {
     } else {
       setBill(updateObject(bill, { subTotal: 0, total: 0 }));
     }
-  }, [bill.items]);
+  }, [bill.items, bill.service, bill.gst]);
 
   return (
     <div className="NewBill">
@@ -95,6 +104,11 @@ const NewBill = (props) => {
           step={step}
           addItem={addItem}
           deleteItem={deleteItem}
+          updateCharge={updateCharge}
+          service={bill.service}
+          gst={bill.gst}
+          subTotal={bill.subTotal}
+          total={bill.total}
         />
       ) : null}
       {step === 2 ? <People people={people} step={step} /> : null}
@@ -113,34 +127,25 @@ const NewBill = (props) => {
   );
 };
 
+export default NewBill;
+
 /* REDUX */
-const mapStateToProps = (state) => {
-  return {
-    step: state.step.step,
-    items: state.bill.items,
-    service: state.bill.service,
-    gst: state.bill.gst,
-    people: state.people.people,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     step: state.step.step,
+//     items: state.bill.items,
+//     service: state.bill.service,
+//     gst: state.bill.gst,
+//     people: state.people.people,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onNext: () => dispatch(actions.next()),
-    onPrev: () => dispatch(actions.previous()),
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onNext: () => dispatch(actions.next()),
+//     onPrev: () => dispatch(actions.previous()),
+//   };
+// };
 
-    onAddItem: (itemData) => dispatch(actions.addItem(itemData)),
-    onDeleteItem: (id) => dispatch(actions.deleteItem(id)),
-
-    onUpdateSubTotal: () => dispatch(actions.updateSubTotal()),
-    onUpdateTotal: () => dispatch(actions.updateTotal()),
-
-    onUpdateCharge: (inputId, value) =>
-      dispatch(actions.updateCharge(inputId, value)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewBill);
+// export default connect(mapStateToProps, mapDispatchToProps)(NewBill);
 /* --- */
-
-// export default NewBill;
