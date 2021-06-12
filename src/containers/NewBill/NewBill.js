@@ -8,22 +8,15 @@ import Items from "../../components/Items/Items";
 import People from "../../components/People/People";
 import Breakdown from "../../components/Breakdown/Breakdown";
 // import * as actions from "../../store/actions/index";
-import { setNewId, updateObject } from "../../shared/utility";
+import { setNewId, updateObject, calculateTotals } from "../../shared/utility";
 
 const NewBill = (props) => {
   const [step, setStep] = useState(1);
   const [items, setItems] = useState([]);
   const [service, setService] = useState(10);
   const [gst, setGst] = useState(7);
-  const [subtotal, setSubtotal] = useState(0.0);
-  const [total, seTtotal] = useState(0.0);
-  const [bill, setBill] = useState({
-    items: [],
-    service: 10,
-    gst: 7,
-    subTotal: 0.0,
-    total: 0.0,
-  });
+  const [subTotal, setSubTotal] = useState(0.0);
+  const [total, setTotal] = useState(0.0);
   const [people] = useState([]); //setPeople
   const [buttons] = useState({
     1: ["", "People"],
@@ -33,7 +26,7 @@ const NewBill = (props) => {
 
   const onNextHandler = () => {
     if (step < 3) {
-    //   props.onNext(); //redux
+      //   props.onNext(); //redux
       setStep(step + 1);
     }
     console.log(buttons[step]);
@@ -41,7 +34,7 @@ const NewBill = (props) => {
 
   const onPrevHandler = () => {
     if (step > 1) {
-    //   props.onPrev(); //redux
+      //   props.onPrev(); //redux
       setStep(step - 1);
     }
     console.log(buttons[step]);
@@ -49,70 +42,57 @@ const NewBill = (props) => {
 
   const addItem = (item) => {
     const newItemData = updateObject(item, {
-      id: setNewId(bill.items),
+      id: setNewId(items),
       itemPrice: parseFloat(item.itemPrice),
       totalQuantity: 0,
     });
-    setBill(
-      updateObject(bill, {
-        items: bill.items.concat(newItemData),
-      })
-    );
+    setItems(items.concat(newItemData));
   };
 
   const deleteItem = (id) => {
-    const idIndex = bill.items.map((el) => el.id).indexOf(id);
-    let clonedItems = [...bill.items];
+    const idIndex = items.map((el) => el.id).indexOf(id);
+    let clonedItems = [...items];
     if (idIndex > -1) {
       clonedItems.splice(idIndex, 1);
     }
-    setBill(updateObject(bill, { items: clonedItems }));
+    setItems(clonedItems);
   };
 
   const updateCharge = (chargeType, val) => {
-    setBill(updateObject(bill, { [chargeType]: val }));
+    // Set charge state
+    chargeType === "service" ? setService(val) : setGst(val);
   };
 
   // Update totals
   useEffect(() => {
-    if (bill.items.length > 0) {
-      // Setsub-total
-      const newTotal = bill.items
-        .map((el) => el.itemPrice)
-        .reduce((prev, curr) => prev + curr);
-      // Set total
-      const totalService =
-        parseFloat(newTotal) + (bill.service / 100) * parseFloat(newTotal);
-      const totalGst = totalService + (bill.gst / 100) * totalService;
-      // Set the bill
-      setBill(
-        updateObject(bill, {
-          subTotal: newTotal.toFixed(2),
-          total: totalGst.toFixed(2),
-        })
-      );
+    if (items.length > 0) {
+      const {subTtl, ttl} = calculateTotals(items, service, gst);
+      setSubTotal(subTtl);
+      setTotal(ttl);
     } else {
-      setBill(updateObject(bill, { subTotal: 0, total: 0 }));
+      //   setBill(updateObject(bill, { subTotal: 0, total: 0 }));
+      setSubTotal(0);
+      setTotal(0);
     }
-  }, [bill.items, bill.service, bill.gst]);
+  }, [items, service, gst]);
 
   return (
     <div className="NewBill">
       {step === 1 ? (
         <Items
-          items={bill.items}
+          items={items}
           step={step}
           addItem={addItem}
           deleteItem={deleteItem}
           updateCharge={updateCharge}
-          service={bill.service}
-          gst={bill.gst}
-          subTotal={bill.subTotal}
-          total={bill.total}
+          service={service}
+          gst={gst}
+          subTotal={subTotal}
+          total={total}
         />
       ) : null}
       {step === 2 ? <People people={people} step={step} /> : null}
-      {step === 3 ? <Breakdown items={bill.items} people={people} /> : null}
+      {step === 3 ? <Breakdown items={items} people={people} /> : null}
       <div className="ButtonDiv">
         <Button variant="contained" onClick={onPrevHandler}>
           <NavigateBefore />

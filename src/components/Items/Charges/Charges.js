@@ -52,7 +52,7 @@ const Charges = (props) => {
     // Update form state
     setControls(updatedForm);
     // Update charges
-    props.updateCharge(inputId, event.target.value)
+    props.updateCharge(inputId, event.target.value);
 
     // update store state
     // this.props.onUpdateCharge(inputId, event.target.value);
@@ -61,13 +61,13 @@ const Charges = (props) => {
   };
 
   useEffect(() => {
-    // Update values of service and gst when comp mounts  
-    setControls({
-        ...controls,
-        service: updateObject(controls.service, { value: props.service }),
-        gst: updateObject(controls.gst, { value: props.gst }),
-      });
-  }, []);
+    // Update values of service and gst when comp mounts
+    setControls((controls) => ({
+      ...controls,
+      service: updateObject(controls.service, { value: props.service }),
+      gst: updateObject(controls.gst, { value: props.gst }),
+    }));
+  }, [props.service, props.gst]);
 
   return (
     <div>
@@ -91,7 +91,7 @@ const Charges = (props) => {
   );
 };
 
-export default Charges
+export default Charges;
 
 /* OLD CODE BELOW */
 
