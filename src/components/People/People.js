@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
-import { NavigateNext, NavigateBefore } from '@material-ui/icons';
+// import { Button } from '@material-ui/core';
+// import { NavigateNext, NavigateBefore } from '@material-ui/icons';
 
 import classes from './People.module.css';
 import NewPerson from './NewPerson/NewPerson';
