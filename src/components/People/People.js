@@ -18,12 +18,13 @@ const People = (props) => {
         updateShareItems={props.updateShareItems}
         addShare={props.addShare}
         deleteShare={props.deleteShare}
+        deletePerson={props.deletePerson}
       />
     </div>
   );
 };
 
-// export default People
+export default People
 
 // class People extends Component {
 //   handleConfirm = () => {
@@ -50,12 +51,12 @@ const People = (props) => {
 //   }
 // }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onNext: () => dispatch(actions.next()),
-    onPrev: () => dispatch(actions.previous()),
-    onUpdateTotalQuantity: () => dispatch(actions.updateTotalQuantity()),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onNext: () => dispatch(actions.next()),
+//     onPrev: () => dispatch(actions.previous()),
+//     onUpdateTotalQuantity: () => dispatch(actions.updateTotalQuantity()),
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(People);
+// export default connect(null, mapDispatchToProps)(People);

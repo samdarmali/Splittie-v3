@@ -15,6 +15,7 @@ const ItemList = (props) => {
         key={i.id}
         id={i.id}
         deleteItem={props.deleteItem}
+        deleteAllShares={props.deleteAllShares}
       />
     );
   });

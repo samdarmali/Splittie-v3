@@ -18,6 +18,7 @@ const PersonList = (props) => {
         updateShareItems={props.updateShareItems}
         addShare={props.addShare}
         deleteShare={props.deleteShare}
+        deletePerson={props.deletePerson}
       />
     );
   });

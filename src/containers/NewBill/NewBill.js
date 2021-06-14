@@ -87,6 +87,29 @@ const NewBill = (props) => {
     // return updateObject(state, { items: clonedItems });
   };
 
+  const deleteAllShares = (itemId) => {
+    const newPeople = people.map((person) => {
+      if (person.shares.length > 0) {
+        // Find itemId index in shares array
+        const idIndex = person.shares.map((el) => el.itemId).indexOf(itemId);
+        // Delete share if exists
+        if (idIndex > -1) {
+          let newShares = [...person.shares];
+          newShares.splice(idIndex, 1);
+          const newPerson = updateObject(person, { shares: newShares });
+          return newPerson;
+        } else {
+          return person;
+        }
+      } else {
+        return person;
+      }
+    });
+    // Update people
+    setPeople(newPeople)
+    // return updateObject(state, { people: newPeople });
+  };
+
   // Update totals
   useEffect(() => {
     if (items.length > 0) {
@@ -113,6 +136,17 @@ const NewBill = (props) => {
     // Add new person data into state
     setPeople(people.concat(newPerson));
     // return updateObject(state, { people: state.people.concat(newPerson) });
+  };
+
+  const deletePerson = (personId) => {
+    const idIndex = people.map((el) => el.id).indexOf(personId);
+    let clonedPeople = [...people];
+    if (idIndex > -1) {
+      clonedPeople.splice(idIndex, 1);
+    }
+    // Delete person from state
+    setPeople(clonedPeople);
+    // return updateObject(state, { people: clonedPeople });
   };
 
   const addShare = (itemId, personId) => {
@@ -192,17 +226,19 @@ const NewBill = (props) => {
     // });
     let newShares = [...people[personIdIndex].shares];
     if (shouldDelete) {
-        newShares.splice(personShareIdIndex, 1);
+      newShares.splice(personShareIdIndex, 1);
     } else {
-        // Replace old share obj 
-        newShares[personShareIdIndex] = share;
+      // Replace old share obj
+      newShares[personShareIdIndex] = share;
     }
     // Replace old person obj
-    const newPerson = updateObject(people[personIdIndex], { shares: newShares });
+    const newPerson = updateObject(people[personIdIndex], {
+      shares: newShares,
+    });
     let clonedPeople = [...people];
     clonedPeople[personIdIndex] = newPerson;
     // Update state
-    setPeople(clonedPeople)
+    setPeople(clonedPeople);
     // return updateObject(state, { people: clonedPeople });
   };
 
@@ -221,6 +257,7 @@ const NewBill = (props) => {
           gst={gst}
           subTotal={subTotal}
           total={total}
+          deleteAllShares={deleteAllShares}
         />
       ) : null}
       {step === 2 ? (
@@ -229,6 +266,7 @@ const NewBill = (props) => {
           people={people}
           step={step}
           addPerson={addPerson}
+          deletePerson={deletePerson}
           updateShareItems={updateShareItems}
           addShare={addShare}
           deleteShare={deleteShare}

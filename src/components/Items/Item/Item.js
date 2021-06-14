@@ -12,6 +12,7 @@ const Item = (props) => {
 
     /* HOOKS */
     props.deleteItem(id);
+    props.deleteAllShares(id);
     /* --- */
 
     /* REDUX */
