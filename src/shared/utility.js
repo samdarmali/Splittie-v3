@@ -62,3 +62,35 @@ export const calculateTotals = (items, service, gst) => {
     ttl: ttl.toFixed(2),
   };
 };
+
+// Set new person ID
+export const setNewPersonId = (people) => {
+    let newId = null;
+    const idList = people.map(el => el.id);
+    // set new id for item that does not already exist            
+    for (let n in [...Array(people.length + 2).keys()]) {
+        if (!idList.includes(parseInt(n)) && parseInt(n) !== 0) {
+            newId = parseInt(n);
+            break;
+        }
+    }
+    return newId;
+}
+
+// Get item attribute (e.g. name / price)
+export const getItemAttribute = (items, itemId, attrName) => {
+    const itemIdIndex = items.map(el => el.id).indexOf(itemId);
+    return items[itemIdIndex][attrName];
+}
+
+// Get person's share details
+export const getPersonSharesDetails = (people, personId) => {
+    const personIdIndex = people.map(el => el.id).indexOf(personId);
+    const personShares = people[personIdIndex].shares;
+    const personSharesIdList = personShares.map(el => el.itemId);
+    return {
+        personIdIndex: personIdIndex,
+        personShares: personShares,
+        personSharesIdList: personSharesIdList
+    };
+}

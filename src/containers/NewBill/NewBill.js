@@ -8,7 +8,14 @@ import Items from "../../components/Items/Items";
 import People from "../../components/People/People";
 import Breakdown from "../../components/Breakdown/Breakdown";
 // import * as actions from "../../store/actions/index";
-import { setNewId, updateObject, calculateTotals } from "../../shared/utility";
+import {
+  setNewId,
+  setNewPersonId,
+  updateObject,
+  calculateTotals,
+  getItemAttribute,
+  getPersonSharesDetails,
+} from "../../shared/utility";
 
 const NewBill = (props) => {
   const [step, setStep] = useState(1);
@@ -17,7 +24,7 @@ const NewBill = (props) => {
   const [gst, setGst] = useState(7);
   const [subTotal, setSubTotal] = useState(0.0);
   const [total, setTotal] = useState(0.0);
-  const [people] = useState([]); //setPeople
+  const [people, setPeople] = useState([]);
   const [buttons] = useState({
     1: ["", "People"],
     2: ["Items", "Confirm"],
@@ -29,7 +36,7 @@ const NewBill = (props) => {
       //   props.onNext(); //redux
       setStep(step + 1);
     }
-    console.log(buttons[step]);
+    // console.log(buttons[step]);
   };
 
   const onPrevHandler = () => {
@@ -37,9 +44,10 @@ const NewBill = (props) => {
       //   props.onPrev(); //redux
       setStep(step - 1);
     }
-    console.log(buttons[step]);
+    // console.log(buttons[step]);
   };
 
+  /* Items */
   const addItem = (item) => {
     const newItemData = updateObject(item, {
       id: setNewId(items),
@@ -63,10 +71,26 @@ const NewBill = (props) => {
     chargeType === "service" ? setService(val) : setGst(val);
   };
 
+  const updateShareItems = (itemId, updateParam) => {
+    const idIndex = items.map((el) => el.id).indexOf(itemId);
+    let clonedItems = [...items];
+    if (updateParam === "add") {
+      clonedItems[idIndex] = updateObject(clonedItems[idIndex], {
+        totalQuantity: clonedItems[idIndex].totalQuantity + 1,
+      });
+    } else {
+      clonedItems[idIndex] = updateObject(clonedItems[idIndex], {
+        totalQuantity: clonedItems[idIndex].totalQuantity - 1,
+      });
+    }
+    setItems(clonedItems);
+    // return updateObject(state, { items: clonedItems });
+  };
+
   // Update totals
   useEffect(() => {
     if (items.length > 0) {
-      const {subTtl, ttl} = calculateTotals(items, service, gst);
+      const { subTtl, ttl } = calculateTotals(items, service, gst);
       setSubTotal(subTtl);
       setTotal(ttl);
     } else {
@@ -75,6 +99,114 @@ const NewBill = (props) => {
       setTotal(0);
     }
   }, [items, service, gst]);
+
+  /* --- */
+
+  /* People */
+  const addPerson = (person) => {
+    // Create new person
+    const newPerson = updateObject(person, {
+      id: setNewPersonId(people),
+      personName: person.personName,
+      shares: [],
+    });
+    // Add new person data into state
+    setPeople(people.concat(newPerson));
+    // return updateObject(state, { people: state.people.concat(newPerson) });
+  };
+
+  const addShare = (itemId, personId) => {
+    // Get person shares details with helper function and destructuring
+    const { personIdIndex, personShares, personSharesIdList } =
+      getPersonSharesDetails(people, personId);
+    // Check if current itemId is in person's shares
+    let share = {};
+    let alreadyExists = false;
+    let personShareIdIndex = null;
+    // if already exists update share, else create new share
+    if (personSharesIdList.includes(itemId)) {
+      // console.log('Item already exists')
+      personShareIdIndex = personSharesIdList.indexOf(itemId);
+      share = {
+        ...personShares[personShareIdIndex],
+        quantity: personShares[personShareIdIndex].quantity + 1,
+      };
+      alreadyExists = true;
+    } else {
+      // console.log('Item does not exists')
+      share = {
+        itemId: itemId,
+        itemName: getItemAttribute(items, itemId, "itemName"),
+        itemPrice: getItemAttribute(items, itemId, "itemPrice"),
+        quantity: 1,
+      };
+    }
+    // dispatch({
+    //   type: actionTypes.ADD_SHARE,
+    //   shareData: share,
+    //   alreadyExists: alreadyExists,
+    //   personIdIndex: personIdIndex,
+    //   personShareIdIndex: personShareIdIndex,
+    // });
+    let newShares = [...people[personIdIndex].shares];
+    if (alreadyExists) {
+      // Replace old share obj
+      newShares[personShareIdIndex] = share;
+    } else {
+      // Add new share obj
+      newShares.push(share);
+    }
+    // Replace old person obj
+    const newPerson = updateObject(people[personIdIndex], {
+      shares: newShares,
+    });
+    let clonedPeople = [...people];
+    clonedPeople[personIdIndex] = newPerson;
+    // Update state
+    setPeople(clonedPeople);
+    // return updateObject(state, { people: clonedPeople });
+  };
+
+  const deleteShare = (itemId, personId) => {
+    const { personIdIndex, personShares, personSharesIdList } =
+      getPersonSharesDetails(people, personId);
+    // Check if last share in person's shares
+    let share = {};
+    let shouldDelete = false;
+    const personShareIdIndex = personSharesIdList.indexOf(itemId);
+    // If last share, delete share, else reduce quantity by 1
+    if (personShares[personSharesIdList.indexOf(itemId)].quantity === 1) {
+      shouldDelete = true;
+    } else {
+      share = {
+        ...personShares[personShareIdIndex],
+        quantity: personShares[personShareIdIndex].quantity - 1,
+      };
+    }
+    // dispatch({
+    //   type: actionTypes.DELETE_SHARE,
+    //   shareData: share,
+    //   shouldDelete: shouldDelete,
+    //   personIdIndex: personIdIndex,
+    //   personShareIdIndex: personShareIdIndex,
+    // });
+    let newShares = [...people[personIdIndex].shares];
+    if (shouldDelete) {
+        newShares.splice(personShareIdIndex, 1);
+    } else {
+        // Replace old share obj 
+        newShares[personShareIdIndex] = share;
+    }
+    // Replace old person obj
+    const newPerson = updateObject(people[personIdIndex], { shares: newShares });
+    let clonedPeople = [...people];
+    clonedPeople[personIdIndex] = newPerson;
+    // Update state
+    setPeople(clonedPeople)
+    // return updateObject(state, { people: clonedPeople });
+  };
+
+  /* --- */
 
   return (
     <div className="NewBill">
@@ -91,7 +223,17 @@ const NewBill = (props) => {
           total={total}
         />
       ) : null}
-      {step === 2 ? <People people={people} step={step} /> : null}
+      {step === 2 ? (
+        <People
+          items={items}
+          people={people}
+          step={step}
+          addPerson={addPerson}
+          updateShareItems={updateShareItems}
+          addShare={addShare}
+          deleteShare={deleteShare}
+        />
+      ) : null}
       {step === 3 ? <Breakdown items={items} people={people} /> : null}
       <div className="ButtonDiv">
         <Button variant="contained" onClick={onPrevHandler}>

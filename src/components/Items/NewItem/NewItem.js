@@ -43,24 +43,21 @@ const NewItem = (props) => {
   });
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const inputChangedHandler = (event, inputIdentifier) => {
+  const inputChangedHandler = (event, inputId) => {
     // Update form element
-    const updatedFormElement = updateObject(controls[inputIdentifier], {
+    const updatedFormElement = updateObject(controls[inputId], {
       value: event.target.value,
-      valid: checkValidity(
-        event.target.value,
-        controls[inputIdentifier].validation
-      ),
+      valid: checkValidity(event.target.value, controls[inputId].validation),
       touched: true,
     });
     // Update whole form
     const updatedForm = updateObject(controls, {
-      [inputIdentifier]: updatedFormElement,
+      [inputId]: updatedFormElement,
     });
     // Validation
     let isValid = true;
-    for (let inputIdentifier in updatedForm) {
-      isValid = updatedForm[inputIdentifier].valid && isValid;
+    for (let inputId in updatedForm) {
+      isValid = updatedForm[inputId].valid && isValid;
     }
     // Update form state
     setControls(updatedForm);
@@ -120,10 +117,7 @@ const NewItem = (props) => {
             elementConfig={controls.itemName.elementConfig}
             value={controls.itemName.value}
             changed={(event) =>
-              inputChangedHandler(
-                event,
-                controls.itemName.elementName
-              )
+              inputChangedHandler(event, controls.itemName.elementName)
             }
           />
           <Input
@@ -131,18 +125,11 @@ const NewItem = (props) => {
             elementConfig={controls.itemCost.elementConfig}
             value={controls.itemCost.value}
             changed={(event) =>
-              inputChangedHandler(
-                event,
-                controls.itemCost.elementName
-              )
+              inputChangedHandler(event, controls.itemCost.elementName)
             }
           />
           <div>
-            <Button
-              disabled={!formIsValid}
-              variant="contained"
-              type="submit"
-            >
+            <Button disabled={!formIsValid} variant="contained" type="submit">
               ADD
             </Button>
           </div>
