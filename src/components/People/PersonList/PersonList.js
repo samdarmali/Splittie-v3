@@ -1,23 +1,32 @@
-import React from 'react';
-import { List } from '@material-ui/core';
+import React from "react";
+import { List } from "@material-ui/core";
 
-import classes from './PersonList.module.css';
-import Person from '../Person/Person';
+import classes from "./PersonList.module.css";
+import Person from "../Person/Person";
 
 const PersonList = (props) => {
-
-    // Map item object into array of jsx elements
-    let transformedPersons = Object.keys(props.peopleObj)
-        .map(igKey => {
-            const i = props.peopleObj[igKey];
-            return <Person personName={i.personName} key={i.id} id={i.id} />
-        });
-
+  // Map item object into array of jsx elements
+  let transformedPersons = Object.keys(props.people).map((igKey) => {
+    const i = props.people[igKey];
     return (
-        <List className={classes.PersonList} style={{marginBottom:'10px'}}>
-            {transformedPersons}
-        </List>
+      <Person
+        people={props.people}
+        items={props.items}
+        personName={i.personName}
+        key={i.id}
+        id={i.id}
+        updateShareItems={props.updateShareItems}
+        addShare={props.addShare}
+        deleteShare={props.deleteShare}
+      />
     );
-}
+  });
+
+  return (
+    <List className={classes.PersonList} style={{ marginBottom: "10px" }}>
+      {transformedPersons}
+    </List>
+  );
+};
 
 export default PersonList;
