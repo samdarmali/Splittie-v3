@@ -289,8 +289,7 @@ const NewBill = (props) => {
           total={total}
           deleteAllShares={deleteAllShares}
         />
-      ) : null}
-      {step === 2 ? (
+      ) : step === 2 ? (
         <People
           items={items}
           people={people}
@@ -301,8 +300,9 @@ const NewBill = (props) => {
           addShare={addShare}
           deleteShare={deleteShare}
         />
+      ) : step === 3 ? (
+        <Breakdown items={items} people={people} total={total} />
       ) : null}
-      {step === 3 ? <Breakdown items={items} people={people} /> : null}
       <div className="ButtonDiv">
         <Button variant="contained" onClick={onPrevHandler}>
           <NavigateBefore />
