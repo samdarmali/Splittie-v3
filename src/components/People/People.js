@@ -1,12 +1,12 @@
-import React, {  } from "react"; //Component
-import { connect } from "react-redux";
+import React from "react"; //Component
+// import { connect } from "react-redux";
 // import { Button } from '@material-ui/core';
 // import { NavigateNext, NavigateBefore } from '@material-ui/icons';
 
 import classes from "./People.module.css";
 import NewPerson from "./NewPerson/NewPerson";
 import PersonList from "./PersonList/PersonList";
-import * as actions from "../../store/actions/index";
+// import * as actions from "../../store/actions/index";
 
 const People = (props) => {
   return (
@@ -24,7 +24,7 @@ const People = (props) => {
   );
 };
 
-export default People
+export default People;
 
 // class People extends Component {
 //   handleConfirm = () => {
