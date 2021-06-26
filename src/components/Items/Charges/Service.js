@@ -1,12 +1,12 @@
 import React from "react";
 
-import classes from "./Service.module.css";
+import "./Service.css";
 import Input from "../../UI/Input/Input";
 
 const Service = (props) => {
   return (
-    <div className={classes.Service}>
-      <div className={classes.ServiceBox}>
+    <div className="Service">
+      <div className="ServiceBox">
         <p>Service:</p>
         <Input
           elementName={props.elementName}

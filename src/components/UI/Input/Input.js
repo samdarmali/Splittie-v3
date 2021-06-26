@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, InputAdornment } from '@material-ui/core';
 
-import classes from './Input.module.css';
+import './Input.css';
 
 const InputField = (props) => {
     let inputElement = null;
@@ -32,9 +32,9 @@ const InputField = (props) => {
                 style={{width: '70%'}} />
             break;
         case ('service'):
-            inputElement = (<div className={classes.Input}>
+            inputElement = (<div className="Input">
                 <input
-                    className={classes.service}
+                    className="service"
                     {...props.elementConfig}
                     value={props.value}
                     onChange={props.changed}
@@ -42,9 +42,9 @@ const InputField = (props) => {
             </div>)
             break;
         case ('gst'):
-            inputElement = (<div className={classes.Input}>
+            inputElement = (<div className="Input">
                 <input
-                    className={classes.gst}
+                    className="gst"
                     {...props.elementConfig}
                     value={props.value}
                     onChange={props.changed}

@@ -1,12 +1,12 @@
 import React from "react";
 
-import classes from "./Gst.module.css";
+import "./Gst.css";
 import Input from "../../UI/Input/Input";
 
 const Gst = (props) => {
   return (
-    <div className={classes.Gst}>
-      <div className={classes.GstBox}>
+    <div className="Gst">
+      <div className="GstBox">
         <p>GST:</p>
         <Input
           elementName={props.elementName}

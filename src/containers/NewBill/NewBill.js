@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { NavigateNext, NavigateBefore } from "@material-ui/icons";
 
@@ -7,7 +6,6 @@ import "./NewBill.css";
 import Items from "../../components/Items/Items";
 import People from "../../components/People/People";
 import Breakdown from "../../components/Breakdown/Breakdown";
-// import * as actions from "../../store/actions/index";
 import {
   setNewId,
   setNewPersonId,
@@ -15,6 +13,7 @@ import {
   calculateTotals,
   getItemAttribute,
   getPersonSharesDetails,
+  updateTotal,
 } from "../../shared/utility";
 
 const NewBill = (props) => {
@@ -31,21 +30,28 @@ const NewBill = (props) => {
     3: ["People", ""],
   });
 
+  /* Buttons */
   const onNextHandler = () => {
     if (step < 3) {
-      //   props.onNext(); //redux
+      if (buttons[step][1] === "Confirm") {
+        updateBreakdown();
+      }
       setStep(step + 1);
     }
-    // console.log(buttons[step]);
   };
 
   const onPrevHandler = () => {
     if (step > 1) {
-      //   props.onPrev(); //redux
       setStep(step - 1);
     }
-    // console.log(buttons[step]);
   };
+
+  //   const handleConfirm = () => {
+  //     // Update share totalQuantity
+  //     this.props.onUpdateTotalQuantity();
+  //     this.props.onNext();
+  //   };
+  /* --- */
 
   /* Items */
   const addItem = (item) => {
@@ -84,7 +90,28 @@ const NewBill = (props) => {
       });
     }
     setItems(clonedItems);
-    // return updateObject(state, { items: clonedItems });
+  };
+
+  const deleteAllShares = (itemId) => {
+    const newPeople = people.map((person) => {
+      if (person.shares.length > 0) {
+        // Find itemId index in shares array
+        const idIndex = person.shares.map((el) => el.itemId).indexOf(itemId);
+        // Delete share if exists
+        if (idIndex > -1) {
+          let newShares = [...person.shares];
+          newShares.splice(idIndex, 1);
+          const newPerson = updateObject(person, { shares: newShares });
+          return newPerson;
+        } else {
+          return person;
+        }
+      } else {
+        return person;
+      }
+    });
+    // Update people
+    setPeople(newPeople);
   };
 
   // Update totals
@@ -94,7 +121,6 @@ const NewBill = (props) => {
       setSubTotal(subTtl);
       setTotal(ttl);
     } else {
-      //   setBill(updateObject(bill, { subTotal: 0, total: 0 }));
       setSubTotal(0);
       setTotal(0);
     }
@@ -112,7 +138,16 @@ const NewBill = (props) => {
     });
     // Add new person data into state
     setPeople(people.concat(newPerson));
-    // return updateObject(state, { people: state.people.concat(newPerson) });
+  };
+
+  const deletePerson = (personId) => {
+    const idIndex = people.map((el) => el.id).indexOf(personId);
+    let clonedPeople = [...people];
+    if (idIndex > -1) {
+      clonedPeople.splice(idIndex, 1);
+    }
+    // Delete person from state
+    setPeople(clonedPeople);
   };
 
   const addShare = (itemId, personId) => {
@@ -141,13 +176,6 @@ const NewBill = (props) => {
         quantity: 1,
       };
     }
-    // dispatch({
-    //   type: actionTypes.ADD_SHARE,
-    //   shareData: share,
-    //   alreadyExists: alreadyExists,
-    //   personIdIndex: personIdIndex,
-    //   personShareIdIndex: personShareIdIndex,
-    // });
     let newShares = [...people[personIdIndex].shares];
     if (alreadyExists) {
       // Replace old share obj
@@ -162,9 +190,8 @@ const NewBill = (props) => {
     });
     let clonedPeople = [...people];
     clonedPeople[personIdIndex] = newPerson;
-    // Update state
+    // Update poeple
     setPeople(clonedPeople);
-    // return updateObject(state, { people: clonedPeople });
   };
 
   const deleteShare = (itemId, personId) => {
@@ -183,29 +210,57 @@ const NewBill = (props) => {
         quantity: personShares[personShareIdIndex].quantity - 1,
       };
     }
-    // dispatch({
-    //   type: actionTypes.DELETE_SHARE,
-    //   shareData: share,
-    //   shouldDelete: shouldDelete,
-    //   personIdIndex: personIdIndex,
-    //   personShareIdIndex: personShareIdIndex,
-    // });
     let newShares = [...people[personIdIndex].shares];
     if (shouldDelete) {
-        newShares.splice(personShareIdIndex, 1);
+      newShares.splice(personShareIdIndex, 1);
     } else {
-        // Replace old share obj 
-        newShares[personShareIdIndex] = share;
+      // Replace old share obj
+      newShares[personShareIdIndex] = share;
     }
     // Replace old person obj
-    const newPerson = updateObject(people[personIdIndex], { shares: newShares });
+    const newPerson = updateObject(people[personIdIndex], {
+      shares: newShares,
+    });
     let clonedPeople = [...people];
     clonedPeople[personIdIndex] = newPerson;
-    // Update state
-    setPeople(clonedPeople)
-    // return updateObject(state, { people: clonedPeople });
+    // Update people
+    setPeople(clonedPeople);
   };
+  /* --- */
 
+  /* Breakdown */
+  const updateBreakdown = () => {
+    const newPeople = people.map((person) => {
+      // Update shares array with item price, total qty, fraction and decimal attributes
+      const newShares = person.shares.map((share) => {
+        const idIndex = items.map((el) => el.id).indexOf(share.itemId);
+        const itemPrice = items[idIndex].itemPrice;
+        const totalQuantity = items[idIndex].totalQuantity;
+        const fraction =
+          share.quantity.toString() + "/" + totalQuantity.toString();
+        return updateObject(share, {
+          itemPrice: itemPrice,
+          totalQuantity: totalQuantity,
+          fraction: fraction,
+          decimal: share.quantity / totalQuantity,
+          sharePrice: (share.quantity / totalQuantity) * itemPrice,
+        });
+      });
+      // Give person a total and sub-total
+      const personSubTotal = newShares
+        .map((el) => el.sharePrice)
+        .reduce((a, b) => a + b, 0);
+      const personTotal = updateTotal(personSubTotal, service, gst);
+      // Update person
+      return updateObject(person, {
+        shares: newShares,
+        subTotal: personSubTotal,
+        total: personTotal,
+      });
+    });
+    // Update people
+    setPeople(newPeople);
+  };
   /* --- */
 
   return (
@@ -221,20 +276,22 @@ const NewBill = (props) => {
           gst={gst}
           subTotal={subTotal}
           total={total}
+          deleteAllShares={deleteAllShares}
         />
-      ) : null}
-      {step === 2 ? (
+      ) : step === 2 ? (
         <People
           items={items}
           people={people}
           step={step}
           addPerson={addPerson}
+          deletePerson={deletePerson}
           updateShareItems={updateShareItems}
           addShare={addShare}
           deleteShare={deleteShare}
         />
+      ) : step === 3 ? (
+        <Breakdown items={items} people={people} total={total} />
       ) : null}
-      {step === 3 ? <Breakdown items={items} people={people} /> : null}
       <div className="ButtonDiv">
         <Button variant="contained" onClick={onPrevHandler}>
           <NavigateBefore />
@@ -250,24 +307,3 @@ const NewBill = (props) => {
 };
 
 export default NewBill;
-
-/* REDUX */
-// const mapStateToProps = (state) => {
-//   return {
-//     step: state.step.step,
-//     items: state.bill.items,
-//     service: state.bill.service,
-//     gst: state.bill.gst,
-//     people: state.people.people,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onNext: () => dispatch(actions.next()),
-//     onPrev: () => dispatch(actions.previous()),
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(NewBill);
-/* --- */

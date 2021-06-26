@@ -94,3 +94,11 @@ export const getPersonSharesDetails = (people, personId) => {
         personSharesIdList: personSharesIdList
     };
 }
+
+// Update person's total
+export const updateTotal = (subTotal, service, gst) => {
+    const floatTotal = parseFloat(subTotal);
+    const totalService = floatTotal + ((service / 100) * floatTotal);
+    const total = totalService + ((gst / 100) * totalService);
+    return total;
+}

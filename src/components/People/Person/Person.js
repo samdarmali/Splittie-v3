@@ -108,7 +108,7 @@ const Person = (props) => {
             </Select>
           </FormControl>
         </div>
-        <IconButton edge="end" onClick={() => props.onDeletePerson(props.id)}>
+        <IconButton edge="end" onClick={() => props.deletePerson(props.id)}>
           <Delete />
         </IconButton>
       </div>
