@@ -1,10 +1,8 @@
-import React, { useState } from "react"; //Component
-import { connect } from "react-redux";
+import React, { useState } from "react"; 
 import { Button } from "@material-ui/core";
 
-import classes from "./NewPerson.module.css";
+import "./NewPerson.css";
 import Input from "../../UI/Input/Input";
-import * as actions from "../../../store/actions/index";
 import { updateObject, checkValidity } from "../../../shared/utility";
 
 const NewPerson = (props) => {
@@ -73,7 +71,7 @@ const NewPerson = (props) => {
   return (
     <>
       <h3>People</h3>
-      <div className={classes.NewPerson}>
+      <div className="NewPerson">
         <form onSubmit={personAddHandler}>
           <Input
             elementName={controls.personName.elementName}
@@ -94,7 +92,7 @@ const NewPerson = (props) => {
   );
 };
 
-// export default NewPerson
+export default NewPerson
 
 /* OLD CODE */
 
@@ -200,10 +198,10 @@ const NewPerson = (props) => {
 //   }
 // }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddPerson: (person) => dispatch(actions.addPerson(person)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onAddPerson: (person) => dispatch(actions.addPerson(person)),
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(NewPerson);
+// export default connect(null, mapDispatchToProps)(NewPerson);

@@ -20,7 +20,8 @@
 
 .ButtonDiv {
     width: 100%;
-    margin-top: 45px;
+    /* margin-top: 45px; */
+    margin-top: 10px;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
