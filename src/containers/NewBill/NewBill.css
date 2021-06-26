@@ -1,5 +1,7 @@
 .NewBill {
-    width: 100%;
+    /* width: 100%;  */
+    width: 320px; 
+    height: 100%;
     display: flex;
     flex-flow: column;
     align-items: center;

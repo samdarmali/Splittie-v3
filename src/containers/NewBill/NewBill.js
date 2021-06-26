@@ -29,7 +29,7 @@ const NewBill = (props) => {
   const [buttons] = useState({
     1: ["", "People"],
     2: ["Items", "Confirm"],
-    3: ["People", "Share"],
+    3: ["People", ""],
   });
 
   /* Buttons */
