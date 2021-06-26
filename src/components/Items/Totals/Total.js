@@ -1,12 +1,11 @@
 import React from "react";
-// import { connect } from "react-redux";
 
-import classes from "./Total.module.css";
+import "./Total.css";
 
 const Total = (props) => {
   return (
-    <div className={classes.Total} style={{ marginBottom: "10px" }}>
-      <div className={classes.TotalBox}>
+    <div className="Total" style={{ marginBottom: "10px" }}>
+      <div className="TotalBox">
         <p>Total</p>
         <p>$ {props.total}</p>
       </div>
@@ -15,11 +14,3 @@ const Total = (props) => {
 };
 
 export default Total;
-
-// const mapStateToProps = (state) => {
-//   return {
-//     total: state.bill.total,
-//   };
-// };
-
-// export default connect(mapStateToProps)(Total);

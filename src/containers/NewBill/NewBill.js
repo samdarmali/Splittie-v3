@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { NavigateNext, NavigateBefore } from "@material-ui/icons";
 
@@ -7,7 +6,6 @@ import "./NewBill.css";
 import Items from "../../components/Items/Items";
 import People from "../../components/People/People";
 import Breakdown from "../../components/Breakdown/Breakdown";
-// import * as actions from "../../store/actions/index";
 import {
   setNewId,
   setNewPersonId,
@@ -46,7 +44,6 @@ const NewBill = (props) => {
     if (step > 1) {
       setStep(step - 1);
     }
-    // console.log(buttons[step]);
   };
 
   //   const handleConfirm = () => {
@@ -93,7 +90,6 @@ const NewBill = (props) => {
       });
     }
     setItems(clonedItems);
-    // return updateObject(state, { items: clonedItems });
   };
 
   const deleteAllShares = (itemId) => {
@@ -116,7 +112,6 @@ const NewBill = (props) => {
     });
     // Update people
     setPeople(newPeople);
-    // return updateObject(state, { people: newPeople });
   };
 
   // Update totals
@@ -126,7 +121,6 @@ const NewBill = (props) => {
       setSubTotal(subTtl);
       setTotal(ttl);
     } else {
-      //   setBill(updateObject(bill, { subTotal: 0, total: 0 }));
       setSubTotal(0);
       setTotal(0);
     }
@@ -144,7 +138,6 @@ const NewBill = (props) => {
     });
     // Add new person data into state
     setPeople(people.concat(newPerson));
-    // return updateObject(state, { people: state.people.concat(newPerson) });
   };
 
   const deletePerson = (personId) => {
@@ -155,7 +148,6 @@ const NewBill = (props) => {
     }
     // Delete person from state
     setPeople(clonedPeople);
-    // return updateObject(state, { people: clonedPeople });
   };
 
   const addShare = (itemId, personId) => {
@@ -198,9 +190,8 @@ const NewBill = (props) => {
     });
     let clonedPeople = [...people];
     clonedPeople[personIdIndex] = newPerson;
-    // Update state
+    // Update poeple
     setPeople(clonedPeople);
-    // return updateObject(state, { people: clonedPeople });
   };
 
   const deleteShare = (itemId, personId) => {
@@ -232,9 +223,8 @@ const NewBill = (props) => {
     });
     let clonedPeople = [...people];
     clonedPeople[personIdIndex] = newPerson;
-    // Update state
+    // Update people
     setPeople(clonedPeople);
-    // return updateObject(state, { people: clonedPeople });
   };
   /* --- */
 
@@ -269,7 +259,6 @@ const NewBill = (props) => {
       });
     });
     // Update people
-    // return updateObject(state, { people: newPeople });
     setPeople(newPeople);
   };
   /* --- */
@@ -318,24 +307,3 @@ const NewBill = (props) => {
 };
 
 export default NewBill;
-
-/* REDUX */
-// const mapStateToProps = (state) => {
-//   return {
-//     step: state.step.step,
-//     items: state.bill.items,
-//     service: state.bill.service,
-//     gst: state.bill.gst,
-//     people: state.people.people,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onNext: () => dispatch(actions.next()),
-//     onPrev: () => dispatch(actions.previous()),
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(NewBill);
-/* --- */

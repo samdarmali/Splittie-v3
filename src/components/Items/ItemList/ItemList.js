@@ -1,7 +1,7 @@
 import React from "react";
 import { List } from "@material-ui/core";
 
-import classes from "./ItemList.module.css";
+import "./ItemList.css";
 import Item from "../Item/Item";
 
 const ItemList = (props) => {
@@ -20,7 +20,7 @@ const ItemList = (props) => {
     );
   });
 
-  return <List className={classes.ItemList}>{transformedItems}</List>;
+  return <List className="ItemList">{transformedItems}</List>;
 };
 
 export default ItemList;

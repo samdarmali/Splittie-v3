@@ -1,11 +1,9 @@
-import React from "react"; //Component
-// import { connect } from "react-redux";
+import React from "react"; 
 
 import "./Items.css";
 import NewItem from "./NewItem/NewItem";
 import ItemList from "./ItemList/ItemList";
 import Totals from "./Totals/Totals";
-// import * as actions from "../../store/actions/index";
 import Charges from "./Charges/Charges";
 
 const Items = (props) => {
@@ -28,12 +26,3 @@ const Items = (props) => {
 };
 
 export default Items;
-
-/* REDUX */
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onNext: () => dispatch(actions.next()),
-//   };
-// };
-
-// export default connect(null, mapDispatchToProps)(Items);
