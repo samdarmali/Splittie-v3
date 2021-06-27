@@ -1,7 +1,7 @@
 import React from "react";
 import { List } from "@material-ui/core";
 
-import classes from "./PersonList.module.css";
+import "./PersonList.css";
 import Person from "../Person/Person";
 
 const PersonList = (props) => {
@@ -24,7 +24,7 @@ const PersonList = (props) => {
   });
 
   return (
-    <List className={classes.PersonList} style={{ marginBottom: "10px" }}>
+    <List className="PersonList" style={{ marginBottom: "10px" }}>
       {transformedPersons}
     </List>
   );
