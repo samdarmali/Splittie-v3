@@ -1,10 +1,10 @@
 import React from 'react';
 
 import splittieLogo from '../../assets/images/logo.png';
-import classes from './Logo.module.css';
+import './Logo.css';
 
 const logo = (props) => (
-    <div className={classes.Logo} style={{height: props.height}}>
+    <div className="Logo" >
         <img src={splittieLogo} alt="MyBurger" />
     </div>
 ); 
