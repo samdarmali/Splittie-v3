@@ -25,10 +25,6 @@
     display: flex;
     flex-flow: row;
     justify-content: space-between;
-    /* position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin: auto; */
 }
 
 @media (min-width: 500px) and (min-height: 400px) {
