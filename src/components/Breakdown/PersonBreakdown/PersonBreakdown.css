@@ -1,8 +1,8 @@
-.ItemList {
+.ItemListPerson {
     width: 100%;
 }
 
-.Item {
+.ItemPerson {
     background-color: lightgrey;
     height: 35px;
     padding-left: 20px; 

@@ -22,7 +22,7 @@ const PersonBreakdown = (props) => {
     let items = shares.map((el) => {
       const itemPrimary = el.itemName + " (" + el.fraction + ") ";
       return (
-        <ListItem key={el.itemId} className="Item">
+        <ListItem key={el.itemId} className="ItemPerson">
           <ListItemText>
             <span style={{ float: "left" }}>{itemPrimary}</span>
             <span style={{ float: "right" }}>$ {el.sharePrice.toFixed(2)}</span>
@@ -33,7 +33,7 @@ const PersonBreakdown = (props) => {
     const max = Math.max(...shares.map((el) => el.id));
     const serviceAndGst = total - subTotal;
     items.push(
-      <ListItem key={max + 1} className="Item">
+      <ListItem key={max + 1} className="ItemPerson">
         <ListItemText>
           <span style={{ float: "left" }}>Service & GST</span>
           <span style={{ float: "right" }}>$ {serviceAndGst.toFixed(2)}</span>
@@ -55,7 +55,7 @@ const PersonBreakdown = (props) => {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding className="ItemList">
+        <List component="div" disablePadding className="ItemListPerson">
           {renderItems()}
         </List>
       </Collapse>

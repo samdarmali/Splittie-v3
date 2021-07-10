@@ -170,7 +170,7 @@ const Breakdown = (props) => {
         </DialogActions>
       </Dialog>
 
-      <Button onClick={handleOpen} variant="contained">
+      <Button onClick={handleOpen} variant="contained" color="primary" fullWidth>
         Share
       </Button>
     </div>

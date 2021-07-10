@@ -125,7 +125,6 @@ const NewBill = (props) => {
       setTotal(0);
     }
   }, [items, service, gst]);
-
   /* --- */
 
   /* People */
